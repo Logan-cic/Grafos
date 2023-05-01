@@ -22,6 +22,8 @@ public class Main {
         // grafinho.printMatrizAdj();
 
         grafinho.numeroDeVertices();
+        grafinho.numeroDeArestas();
+
     }
     
 }

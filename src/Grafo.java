@@ -88,4 +88,8 @@ public class Grafo<TIPO> {
     public void numeroDeVertices() {
        System.out.println("O numero de vertices é "+vertices.size());
     }
+
+    public void numeroDeArestas() {
+        System.out.println("O numero de arestas é "+arestas.size());
+     }
 }
