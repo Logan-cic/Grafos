@@ -1,34 +1,42 @@
-import java.util.ArrayList;
-
 public class Main {
     
     public static void main(String[] args) {
         Grafo<Integer> grafinho = new Grafo<Integer>();
-        grafinho.addVertice(1);
-        grafinho.addVertice(2);
-        grafinho.addVertice(3);
-        grafinho.addVertice(4);
+        grafinho.addVertice("u");
+        grafinho.addVertice("v");
+        grafinho.addVertice("y");
+        grafinho.addVertice("w");
+        grafinho.addVertice("x");     
 
-        grafinho.addAresta(1, 2);
-        grafinho.addAresta(1, 4);
-        grafinho.addAresta(1, 3);
-        grafinho.addAresta(2, 1);        
-        grafinho.addAresta(2, 3);
-        grafinho.addAresta(3, 2);
-        grafinho.addAresta(3, 1);
-        grafinho.addAresta(4, 1);
-        grafinho.addAresta(4, 3);
+        grafinho.addAresta("u", "v");
+        grafinho.addAresta("u", "w");
+
+        grafinho.addAresta("v", "u");        
+        grafinho.addAresta("v", "v");
+        grafinho.addAresta("v", "w");
+        grafinho.addAresta("v", "x");
+
+        grafinho.addAresta("w", "v");
+        grafinho.addAresta("w", "u");
+
+        grafinho.addAresta("x", "v");
+
+        System.out.println(" ");
 
         grafinho.printAdjList();
         System.out.println(" ");
         grafinho.printMatrizAdj();
 
+        System.out.println(" ");
+
         grafinho.numeroDeVertices();
         grafinho.numeroDeArestas();
 
         System.out.println(" ");
-        
-        grafinho.printArestasAdjacentes(2);
+
+        grafinho.printArestasAdjacentes("v");
+
+        System.out.println(" ");
     }
     
 }

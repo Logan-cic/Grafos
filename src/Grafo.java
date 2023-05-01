@@ -1,23 +1,23 @@
 import java.util.ArrayList;
 
-public class Grafo<TIPO> {
-    private ArrayList<Vertice<TIPO>> vertices;
-    private ArrayList<Aresta<TIPO>> arestas;
+public class Grafo<Object> {
+    private ArrayList<Vertice<Object>> vertices;
+    private ArrayList<Aresta<Object>> arestas;
 
-    private ArrayList<ArrayList<Vertice<TIPO>>> adjList;
+    private ArrayList<ArrayList<Vertice<Object>>> adjList;
     private int[][] adjMatriz;
 
     
     public Grafo(){
-        this.vertices = new ArrayList<Vertice<TIPO>>();
-        this.arestas = new ArrayList<Aresta<TIPO>>();
-        this.adjList = new ArrayList<ArrayList<Vertice<TIPO>>>();
+        this.vertices = new ArrayList<Vertice<Object>>();
+        this.arestas = new ArrayList<Aresta<Object>>();
+        this.adjList = new ArrayList<ArrayList<Vertice<Object>>>();
         this.adjMatriz = new int[0][0];
     }
     
     
-    public void addVertice(TIPO dado){
-        Vertice<TIPO> novoVertice = new Vertice<TIPO>(dado);
+    public void addVertice(String string){
+        Vertice<Object> novoVertice = new Vertice<Object>(string);
         this.vertices.add(novoVertice);
     
         int[][] novaMatrizadjMatriz = new int[this.vertices.size()][this.vertices.size()];
@@ -28,15 +28,15 @@ public class Grafo<TIPO> {
         }
         this.adjMatriz = novaMatrizadjMatriz;
     
-        ArrayList<Vertice<TIPO>> newList = new ArrayList<Vertice<TIPO>>();
+        ArrayList<Vertice<Object>> newList = new ArrayList<Vertice<Object>>();
         this.adjList.add(newList);
     }
     
     
-    public void addAresta(TIPO dadoInicio, TIPO dadoFim){
-        Vertice<TIPO> inicio = this.getVertice(dadoInicio);
-        Vertice<TIPO> fim = this.getVertice(dadoFim);
-        Aresta<TIPO> aresta = new Aresta<TIPO>(inicio, fim);
+    public void addAresta(String string, String string2){
+        Vertice<Object> inicio = this.getVertice(string);
+        Vertice<Object> fim = this.getVertice(string2);
+        Aresta<Object> aresta = new Aresta<Object>(inicio, fim);
         inicio.addArestaSaida(aresta);
         fim.addArestaEntrada(aresta);
         this.arestas.add(aresta);
@@ -49,10 +49,10 @@ public class Grafo<TIPO> {
     }
     
     
-    public Vertice<TIPO> getVertice(TIPO dado){
-        Vertice<TIPO> vertice = null;
+    public Vertice<Object> getVertice(String string){
+        Vertice<Object> vertice = null;
         for(int i=0; i < this.vertices.size(); i++){
-            if (this.vertices.get(i).getDado().equals(dado)){
+            if (this.vertices.get(i).getDado().equals(string)){
                 vertice = this.vertices.get(i);
                 break;
             }
@@ -85,17 +85,17 @@ public class Grafo<TIPO> {
         }
     }
 
-    public void printArestasAdjacentes(TIPO dado) {
-        ArrayList<Aresta<TIPO>> arestasAdjacentes = new ArrayList<Aresta<TIPO>>();
-        Vertice<TIPO> vertice = this.getVertice(dado);
+    public void printArestasAdjacentes(String string) {
+        ArrayList<Aresta<Object>> arestasAdjacentes = new ArrayList<Aresta<Object>>();
+        Vertice<Object> vertice = this.getVertice(string);
         if (vertice != null) {
-            for (Aresta<TIPO> aresta : this.arestas) {
+            for (Aresta<Object> aresta : this.arestas) {
                 if (aresta.getInicio().equals(vertice) || aresta.getFim().equals(vertice)) {
                     arestasAdjacentes.add(aresta);
                 }
             }
-            System.out.println("Arestas adjacentes ao vértice " + dado + ": ");
-            for (Aresta<TIPO> aresta : arestasAdjacentes) {
+            System.out.println("Arestas adjacentes ao vértice " + string + ": ");
+            for (Aresta<Object> aresta : arestasAdjacentes) {
                 System.out.println(aresta.toString());
             }
         }
@@ -107,7 +107,7 @@ public class Grafo<TIPO> {
     }
 
     public void numeroDeArestas() {
-        System.out.println("O numero de arestas é "+arestas.size());
+        System.out.println("O numero de arestas é "+ Math.ceil((1 + arestas.size()) / 2) );
      }
     
 }
