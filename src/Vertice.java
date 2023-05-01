@@ -1,37 +1,37 @@
 import java.util.ArrayList;
 
-public class Vertice<Object> {
-    private Object dado;
-    private ArrayList<Aresta<Object>> arestasEntrada;
-    private ArrayList<Aresta<Object>> arestasSaida;
+public class Vertice<TIPO> {
+    private TIPO dado;
+    private ArrayList<Aresta<TIPO>> arestasEntrada;
+    private ArrayList<Aresta<TIPO>> arestasSaida;
     
-    public Vertice(Object valor){
+    public Vertice(TIPO valor){
         this.dado = valor;
-        this.arestasEntrada = new ArrayList<Aresta<Object>>();
-        this.arestasSaida = new ArrayList<Aresta<Object>>();
+        this.arestasEntrada = new ArrayList<Aresta<TIPO>>();
+        this.arestasSaida = new ArrayList<Aresta<TIPO>>();
     }
 
-    public Object getDado() {
+    public TIPO getDado() {
         return dado;
     }
 
-    public void setDado(Object dado) {
+    public void setDado(TIPO dado) {
         this.dado = dado;
     }
     
-    public void addArestaEntrada(Aresta<Object> aresta){
+    public void addArestaEntrada(Aresta<TIPO> aresta){
         this.arestasEntrada.add(aresta);
     }
     
-    public void addArestaSaida(Aresta<Object> aresta){
+    public void addArestaSaida(Aresta<TIPO> aresta){
         this.arestasSaida.add(aresta);
     }
 
-    public ArrayList<Aresta<Object>> getArestasEntrada() {
+    public ArrayList<Aresta<TIPO>> getArestasEntrada() {
         return arestasEntrada;
     }
 
-    public ArrayList<Aresta<Object>> getArestasSaida() {
+    public ArrayList<Aresta<TIPO>> getArestasSaida() {
         return arestasSaida;
     }
 }

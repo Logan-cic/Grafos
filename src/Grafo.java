@@ -1,23 +1,23 @@
 import java.util.ArrayList;
 
-public class Grafo<Object> {
-    private ArrayList<Vertice<Object>> vertices;
-    private ArrayList<Aresta<Object>> arestas;
+public class Grafo<TIPO> {
+    private ArrayList<Vertice<TIPO>> vertices;
+    private ArrayList<Aresta<TIPO>> arestas;
 
-    private ArrayList<ArrayList<Vertice<Object>>> adjList;
+    private ArrayList<ArrayList<Vertice<TIPO>>> adjList;
     private int[][] adjMatriz;
 
     
     public Grafo(){
-        this.vertices = new ArrayList<Vertice<Object>>();
-        this.arestas = new ArrayList<Aresta<Object>>();
-        this.adjList = new ArrayList<ArrayList<Vertice<Object>>>();
+        this.vertices = new ArrayList<Vertice<TIPO>>();
+        this.arestas = new ArrayList<Aresta<TIPO>>();
+        this.adjList = new ArrayList<ArrayList<Vertice<TIPO>>>();
         this.adjMatriz = new int[0][0];
     }
     
     
-    public void addVertice(Object dado){
-        Vertice<Object> novoVertice = new Vertice<Object>(dado);
+    public void addVertice(TIPO dado){
+        Vertice<TIPO> novoVertice = new Vertice<TIPO>(dado);
         this.vertices.add(novoVertice);
     
         int[][] novaMatrizadjMatriz = new int[this.vertices.size()][this.vertices.size()];
@@ -28,15 +28,15 @@ public class Grafo<Object> {
         }
         this.adjMatriz = novaMatrizadjMatriz;
     
-        ArrayList<Vertice<Object>> newList = new ArrayList<Vertice<Object>>();
+        ArrayList<Vertice<TIPO>> newList = new ArrayList<Vertice<TIPO>>();
         this.adjList.add(newList);
     }
     
     
-    public void addAresta(Object dadoInicio, Object dadoFim){
-        Vertice<Object> inicio = this.getVertice(dadoInicio);
-        Vertice<Object> fim = this.getVertice(dadoFim);
-        Aresta<Object> aresta = new Aresta<Object>(inicio, fim);
+    public void addAresta(TIPO dadoInicio, TIPO dadoFim){
+        Vertice<TIPO> inicio = this.getVertice(dadoInicio);
+        Vertice<TIPO> fim = this.getVertice(dadoFim);
+        Aresta<TIPO> aresta = new Aresta<TIPO>(inicio, fim);
         inicio.addArestaSaida(aresta);
         fim.addArestaEntrada(aresta);
         this.arestas.add(aresta);
@@ -49,8 +49,8 @@ public class Grafo<Object> {
     }
     
     
-    public Vertice<Object> getVertice(Object dado){
-        Vertice<Object> vertice = null;
+    public Vertice<TIPO> getVertice(TIPO dado){
+        Vertice<TIPO> vertice = null;
         for(int i=0; i < this.vertices.size(); i++){
             if (this.vertices.get(i).getDado().equals(dado)){
                 vertice = this.vertices.get(i);

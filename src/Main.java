@@ -13,12 +13,10 @@ public class Main {
         grafinho.addAresta(2, 1);        
         grafinho.addAresta(2, 3);
         grafinho.addAresta(3, 2);
-        grafinho.addAresta(4, 1);
-        grafinho.addAresta(4, 1);
         grafinho.addAresta(3, 1);
         grafinho.addAresta(4, 1);
         grafinho.addAresta(4, 3);
-        
+
         grafinho.printAdjList();
         System.out.println(" ");
         grafinho.printMatrizAdj();
