@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Main {
     
     public static void main(String[] args) {
@@ -17,13 +19,16 @@ public class Main {
         grafinho.addAresta(4, 1);
         grafinho.addAresta(4, 3);
 
-        // grafinho.printAdjList();
-        // System.out.println(" ");
-        // grafinho.printMatrizAdj();
+        grafinho.printAdjList();
+        System.out.println(" ");
+        grafinho.printMatrizAdj();
 
         grafinho.numeroDeVertices();
         grafinho.numeroDeArestas();
 
+        System.out.println(" ");
+        
+        grafinho.printArestasAdjacentes(2);
     }
     
 }

@@ -85,6 +85,23 @@ public class Grafo<TIPO> {
         }
     }
 
+    public void printArestasAdjacentes(TIPO dado) {
+        ArrayList<Aresta<TIPO>> arestasAdjacentes = new ArrayList<Aresta<TIPO>>();
+        Vertice<TIPO> vertice = this.getVertice(dado);
+        if (vertice != null) {
+            for (Aresta<TIPO> aresta : this.arestas) {
+                if (aresta.getInicio().equals(vertice) || aresta.getFim().equals(vertice)) {
+                    arestasAdjacentes.add(aresta);
+                }
+            }
+            System.out.println("Arestas adjacentes ao vértice " + dado + ": ");
+            for (Aresta<TIPO> aresta : arestasAdjacentes) {
+                System.out.println(aresta.toString());
+            }
+        }
+    }
+       
+
     public void numeroDeVertices() {
        System.out.println("O numero de vertices é "+vertices.size());
     }
@@ -92,4 +109,5 @@ public class Grafo<TIPO> {
     public void numeroDeArestas() {
         System.out.println("O numero de arestas é "+arestas.size());
      }
+    
 }

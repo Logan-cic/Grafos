@@ -25,4 +25,9 @@ public class Aresta<TIPO> {
         this.fim = fim;
     }
 
+    @Override
+    public String toString() {
+        return "Aresta de " + this.inicio.getDado() + " para " + this.fim.getDado();
+    }
+
 }
