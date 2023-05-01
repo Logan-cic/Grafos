@@ -17,9 +17,11 @@ public class Main {
         grafinho.addAresta(4, 1);
         grafinho.addAresta(4, 3);
 
-        grafinho.printAdjList();
-        System.out.println(" ");
-        grafinho.printMatrizAdj();
+        // grafinho.printAdjList();
+        // System.out.println(" ");
+        // grafinho.printMatrizAdj();
+
+        grafinho.numeroDeVertices();
     }
     
 }

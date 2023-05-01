@@ -84,4 +84,8 @@ public class Grafo<TIPO> {
             System.out.println();
         }
     }
+
+    public void numeroDeVertices() {
+       System.out.println("O numero de vertices é "+vertices.size());
+    }
 }

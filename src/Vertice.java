@@ -34,4 +34,5 @@ public class Vertice<TIPO> {
     public ArrayList<Aresta<TIPO>> getArestasSaida() {
         return arestasSaida;
     }
+
 }
