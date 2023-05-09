@@ -1,42 +1,47 @@
 public class Main {
     
     public static void main(String[] args) {
-        Grafo<Integer> grafinho = new Grafo<Integer>();
-        grafinho.addVertice("u");
-        grafinho.addVertice("v");
-        grafinho.addVertice("y");
-        grafinho.addVertice("w");
-        grafinho.addVertice("x");     
 
-        grafinho.addAresta("u", "v");
-        grafinho.addAresta("u", "w");
+        Grafo<String> grafo = new Grafo<String>();
+        grafo.addVertice("A");
+        grafo.addVertice("B");
+        grafo.addVertice("C");
+        grafo.addVertice("D");
+        grafo.addVertice("E");
+        grafo.addVertice("F");
 
-        grafinho.addAresta("v", "u");        
-        grafinho.addAresta("v", "v");
-        grafinho.addAresta("v", "w");
-        grafinho.addAresta("v", "x");
+        
+        grafo.addAresta("A", "B");
+        grafo.addAresta("A", "C");
 
-        grafinho.addAresta("w", "v");
-        grafinho.addAresta("w", "u");
+        grafo.addAresta("B", "C");
+        grafo.addAresta("B", "A");
 
-        grafinho.addAresta("x", "v");
+
+        grafo.addAresta("C", "B");
+        grafo.addAresta("C", "D");
+
+
+        grafo.addAresta("D", "E");
+        grafo.addAresta("D", "C");
+
+        grafo.addAresta("E", "D");
+        
+        grafo.addAresta("E", "F");
+        grafo.addAresta("F", "F");
+        grafo.addAresta("F", "E");
+
+        
+        grafo.DFS();
+        System.out.println(grafo.toString());
 
         System.out.println(" ");
-
-        grafinho.printAdjList();
+        grafo.printAdjList();
         System.out.println(" ");
-        grafinho.printMatrizAdj();
-
-        System.out.println(" ");
-
-        grafinho.numeroDeVertices();
-        grafinho.numeroDeArestas();
+        grafo.printMatrizAdj();
 
         System.out.println(" ");
-
-        grafinho.printArestasAdjacentes("v");
-
-        System.out.println(" ");
+ 
     }
     
 }

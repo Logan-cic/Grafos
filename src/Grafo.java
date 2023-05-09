@@ -6,6 +6,7 @@ public class Grafo<Object> {
 
     private ArrayList<ArrayList<Vertice<Object>>> adjList;
     private int[][] adjMatriz;
+    int time = 0;
 
     
     public Grafo(){
@@ -100,14 +101,59 @@ public class Grafo<Object> {
             }
         }
     }
-       
 
-    public void numeroDeVertices() {
-       System.out.println("O numero de vertices é "+vertices.size());
+    public void DFS() {
+        for (Vertice<Object> u : vertices) {
+            u.setCor("BRANCO");
+            u.setAntecessor(null);
+        }
+        time = 0;
+        for (Vertice<Object> u : vertices) {
+            if (u.getCor().equals("BRANCO")) {
+                DFS_VISIT(u);
+            }
+        }
     }
+    
+    private <TIPO> void DFS_VISIT(Vertice<Object> u) {
+        u.setCor("CINZA");
+        time++;
+        u.setTempoDeDescoberta(time);
+        for (Vertice<Object> v : adjList.get(vertices.indexOf(u))) {
+            if (v.getCor().equals("BRANCO")) {
+                v.setAntecessor(u);
+                DFS_VISIT(v);
+            }
+        }
+        u.setCor("PRETO");
+        time++;
+        u.setTermino(time);
+    }
+    
 
-    public void numeroDeArestas() {
-        System.out.println("O numero de arestas é "+ Math.ceil((1 + arestas.size()) / 2) );
-     }
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Vertice<Object> v : vertices) {
+            sb.append("Vertice: ").append(v.toString());
+            sb.append("\nCor: ").append(v.getCor());
+            sb.append("\nTempo de descoberta: ").append(v.getTempoDeDescoberta());
+            sb.append("\ntérmino: ").append(v.getTermino());
+            sb.append("\nAntecessor: ");
+            if (v.getAntecessor() == null) {
+                sb.append("null");
+            } else {
+                sb.append(v.getAntecessor().toString());
+            }
+            sb.append("\n\n");
+        }
+        return sb.toString();
+    }
     
 }
+    // public void numeroDeVertices() {
+    //     System.out.println("O numero de vertices é "+vertices.size());
+    //  }
+ 
+    //  public void numeroDeArestas() {
+    //      System.out.println("O numero de arestas é "+ Math.ceil((1 + arestas.size()) / 2) );
+    //   }
