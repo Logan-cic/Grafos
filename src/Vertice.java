@@ -8,6 +8,7 @@ public class Vertice<TIPO> {
     private Vertice<TIPO> antecessor;
     private int tempoDeDescoberta;
     private int termino;
+    private String rotulo;
 
     public Vertice(String dado){
         this.dado = dado;
@@ -18,7 +19,7 @@ public class Vertice<TIPO> {
         this.tempoDeDescoberta = -1;
         this.termino = -1;
     }
-
+    
     public String getDado() {
         return dado;
     }

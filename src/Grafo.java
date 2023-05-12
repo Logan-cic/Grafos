@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class Grafo<Object> {
     private ArrayList<Vertice<Object>> vertices;
@@ -148,12 +151,37 @@ public class Grafo<Object> {
         }
         return sb.toString();
     }
-    
+
+
+    public void BFS(String s) {
+        for (Vertice<Object> u : vertices) {
+            u.setCor("BRANCO");
+            u.setAntecessor(null);
+            u.setTempoDeDescoberta(Integer.MAX_VALUE);
+        }
+        Vertice<Object> inicio = this.getVertice(s);
+        inicio.setCor("CINZA");
+        inicio.setTempoDeDescoberta(0);
+        inicio.setAntecessor(null);
+        Queue<Vertice<Object>> fila = new LinkedList<Vertice<Object>>();
+        fila.add(inicio);
+        while (!fila.isEmpty()) {
+            // System.out.println(fila);
+            Vertice<Object> u = fila.poll();
+            System.out.println(u);
+            for (Vertice<Object> v : adjList.get(vertices.indexOf(u))) {
+                if (v.getCor().equals("BRANCO")) {
+                    // System.out.println(v + v.getCor());
+                    v.setCor("CINZA");
+                    v.setTempoDeDescoberta(u.getTempoDeDescoberta()+1);
+                    v.setAntecessor(u);
+                    fila.add(v);
+                    // System.out.println(v + v.getCor());
+                }
+            }
+            u.setCor("PRETO");
+            System.out.println("vertice " + u + " ficou " + u.getCor());
+            // System.out.println("vertice " + u + " o seu tempo de descorberta foi: " + u.getTempoDeDescoberta());
+        }
+    }
 }
-    // public void numeroDeVertices() {
-    //     System.out.println("O numero de vertices é "+vertices.size());
-    //  }
- 
-    //  public void numeroDeArestas() {
-    //      System.out.println("O numero de arestas é "+ Math.ceil((1 + arestas.size()) / 2) );
-    //   }

@@ -34,17 +34,17 @@ public class Main {
         g.addAresta("6","8");
         g.addAresta("8","6");
 
+        g.BFS("3");
+        // g.printVerticesVisitados();
+        // g.DFS();
+        //System.out.println(g.toString());
 
-        
-        g.DFS();
-        System.out.println(g.toString());
+        // System.out.println(" ");
+        // g.printAdjList();
+        // System.out.println(" ");
+        // g.printMatrizAdj();
 
-        System.out.println(" ");
-        g.printAdjList();
-        System.out.println(" ");
-        g.printMatrizAdj();
-
-        System.out.println(" ");
+        // System.out.println(" ");
  
     }
     
