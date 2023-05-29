@@ -161,7 +161,6 @@ class Grafo<T> {
             while (!Q.isEmpty()) {
                 Vertice<T> u = Q.poll();
                 S.add(u);
-                // System.out.println("Fila de prioriade: "+ S);
 
 
                 for (Aresta<T> aresta : u.getArestasSaida()) {
@@ -191,6 +190,7 @@ class Grafo<T> {
         if (v.getDistancia() > u.getDistancia() + peso) {
             v.setDistancia(u.getDistancia() + peso);
             v.setAntecessor(u);
+            // System.out.println(u.getAntecessor());
         }
     }
 
