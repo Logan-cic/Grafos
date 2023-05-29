@@ -1,187 +1,207 @@
-import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class Grafo<Object> {
-    private ArrayList<Vertice<Object>> vertices;
-    private ArrayList<Aresta<Object>> arestas;
+class Grafo<T> {
+    private HashMap<T, Vertice<T>> vertices;
 
-    private ArrayList<ArrayList<Vertice<Object>>> adjList;
-    private int[][] adjMatriz;
-    int time = 0;
+    public Grafo() {
+        this.vertices = new HashMap<>();
+    }
 
-    
-    public Grafo(){
-        this.vertices = new ArrayList<Vertice<Object>>();
-        this.arestas = new ArrayList<Aresta<Object>>();
-        this.adjList = new ArrayList<ArrayList<Vertice<Object>>>();
-        this.adjMatriz = new int[0][0];
-    }
-    
-    
-    public void addVertice(String string){
-        Vertice<Object> novoVertice = new Vertice<Object>(string);
-        this.vertices.add(novoVertice);
-    
-        int[][] novaMatrizadjMatriz = new int[this.vertices.size()][this.vertices.size()];
-        for (int i = 0; i < this.adjMatriz.length; i++) {
-            for (int j = 0; j < this.adjMatriz[0].length; j++) {
-                novaMatrizadjMatriz[i][j] = this.adjMatriz[i][j];
-            }
+    public void addVertice(T dado) {
+        if (!vertices.containsKey(dado)) {
+            vertices.put(dado, new Vertice<>(dado));
         }
-        this.adjMatriz = novaMatrizadjMatriz;
-    
-        ArrayList<Vertice<Object>> newList = new ArrayList<Vertice<Object>>();
-        this.adjList.add(newList);
     }
-    
-    
-    public void addAresta(String string, String string2){
-        Vertice<Object> inicio = this.getVertice(string);
-        Vertice<Object> fim = this.getVertice(string2);
-        Aresta<Object> aresta = new Aresta<Object>(inicio, fim);
-        inicio.addArestaSaida(aresta);
-        fim.addArestaEntrada(aresta);
-        this.arestas.add(aresta);
-    
-        int i = this.vertices.indexOf(inicio);
-        int j = this.vertices.indexOf(fim);
-        this.adjMatriz[i][j] = 1;
-    
-        this.adjList.get(i).add(fim);
-    }
-    
-    
-    public Vertice<Object> getVertice(String string){
-        Vertice<Object> vertice = null;
-        for(int i=0; i < this.vertices.size(); i++){
-            if (this.vertices.get(i).getDado().equals(string)){
-                vertice = this.vertices.get(i);
-                break;
-            }
+
+    public void addAresta(T inicio, T fim, int peso) {
+        if (vertices.containsKey(inicio) && vertices.containsKey(fim)) {
+            Vertice<T> verticeInicio = vertices.get(inicio);
+            Vertice<T> verticeFim = vertices.get(fim);
+
+            Aresta<T> aresta = new Aresta<>(verticeInicio, verticeFim, peso);
+
+            verticeInicio.addArestaSaida(aresta);
+            verticeFim.addArestaEntrada(aresta);
         }
-        return vertice;
     }
-    
-    public void printAdjList(){
-        for(int i=0; i<this.adjList.size(); i++){
-            System.out.print("[" + this.vertices.get(i).getDado() + "]: ");
-            for(int j=0; j<this.adjList.get(i).size(); j++){
-                System.out.print(this.adjList.get(i).get(j).getDado() + " ");
+
+    public void printAdjList() {
+        for (Vertice<T> vertice : vertices.values()) {
+            System.out.print(vertice.getDado() + ": ");
+
+            for (Aresta<T> aresta : vertice.getArestasSaida()) {
+                System.out.print(aresta.getFim().getDado() + "(" + aresta.getPeso() + ") ");
             }
+
             System.out.println();
         }
     }
-    
-    public void printMatrizAdj(){
+
+    public void printMatrizAdj() {
+        int n = vertices.size();
+        T[] verticeArray = (T[]) vertices.keySet().toArray();
+
         System.out.print("  ");
-        for(int i=0; i<this.vertices.size(); i++){
-            System.out.print(this.vertices.get(i).getDado() + " ");
-        }
-        System.out.println();
-        for(int i=0; i<this.adjMatriz.length; i++){
-            System.out.print(this.vertices.get(i).getDado() + " ");
-            for(int j=0; j<this.adjMatriz[0].length; j++){
-                System.out.print(this.adjMatriz[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
 
-    public void printArestasAdjacentes(String string) {
-        ArrayList<Aresta<Object>> arestasAdjacentes = new ArrayList<Aresta<Object>>();
-        Vertice<Object> vertice = this.getVertice(string);
-        if (vertice != null) {
-            for (Aresta<Object> aresta : this.arestas) {
-                if (aresta.getInicio().equals(vertice) || aresta.getFim().equals(vertice)) {
-                    arestasAdjacentes.add(aresta);
+        for (int i = 0; i < n; i++) {
+            System.out.print(verticeArray[i] + " ");
+        }
+
+        System.out.println();
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(verticeArray[i] + " ");
+
+            for (int j = 0; j < n; j++) {
+                Vertice<T> verticeInicio = vertices.get(verticeArray[i]);
+                Vertice<T> verticeFim = vertices.get(verticeArray[j]);
+                boolean adjacente = false;
+
+                for (Aresta<T> aresta : verticeInicio.getArestasSaida()) {
+                    if (aresta.getFim() == verticeFim) {
+                        System.out.print(aresta.getPeso() + " ");
+                        adjacente = true;
+                        break;
+                    }
+                }
+
+                if (!adjacente) {
+                    System.out.print("0 ");
                 }
             }
-            System.out.println("Arestas adjacentes ao vértice " + string + ": ");
-            for (Aresta<Object> aresta : arestasAdjacentes) {
-                System.out.println(aresta.toString());
+
+            System.out.println();
+        }
+    }
+
+    public void printArestasAdjacentes(T dado) {
+        if (vertices.containsKey(dado)) {
+            Vertice<T> vertice = vertices.get(dado);
+
+            System.out.println("Arestas adjacentes a " + dado + ":");
+
+            for (Aresta<T> aresta : vertice.getArestasSaida()) {
+                System.out.println(aresta);
             }
+        }
+    }
+
+    public void BFS(T dado) {
+        if (vertices.containsKey(dado)) {
+            Vertice<T> vertice = vertices.get(dado);
+            Queue<Vertice<T>> fila = new LinkedList<>();
+            HashSet<Vertice<T>> visitados = new HashSet<>();
+
+            fila.add(vertice);
+            visitados.add(vertice);
+
+            System.out.println("Busca em Largura (BFS) a partir de " + dado + ":");
+
+            while (!fila.isEmpty()) {
+                Vertice<T> atual = fila.poll();
+                System.out.print(atual.getDado() + " ");
+
+                for (Aresta<T> aresta : atual.getArestasSaida()) {
+                    Vertice<T> vizinho = aresta.getFim();
+
+                    if (!visitados.contains(vizinho)) {
+                        fila.add(vizinho);
+                        visitados.add(vizinho);
+                    }
+                }
+            }
+
+            System.out.println();
         }
     }
 
     public void DFS() {
-        for (Vertice<Object> u : vertices) {
-            u.setCor("BRANCO");
-            u.setAntecessor(null);
+        HashSet<Vertice<T>> visitados = new HashSet<>();
+
+        System.out.println("Busca em Profundidade (DFS):");
+
+        for (Vertice<T> vertice : vertices.values()) {
+            if (!visitados.contains(vertice)) {
+                DFSVisit(vertice, visitados);
+            }
         }
-        time = 0;
-        for (Vertice<Object> u : vertices) {
-            if (u.getCor().equals("BRANCO")) {
-                DFS_VISIT(u);
+
+        System.out.println();
+    }
+
+    private void DFSVisit(Vertice<T> vertice, HashSet<Vertice<T>> visitados) {
+        visitados.add(vertice);
+        System.out.print(vertice.getDado() + " ");
+
+        for (Aresta<T> aresta : vertice.getArestasSaida()) {
+            Vertice<T> vizinho = aresta.getFim();
+
+            if (!visitados.contains(vizinho)) {
+                DFSVisit(vizinho, visitados);
             }
         }
     }
-    
-    private <TIPO> void DFS_VISIT(Vertice<Object> u) {
-        u.setCor("CINZA");
-        time++;
-        u.setTempoDeDescoberta(time);
-        for (Vertice<Object> v : adjList.get(vertices.indexOf(u))) {
-            if (v.getCor().equals("BRANCO")) {
-                v.setAntecessor(u);
-                DFS_VISIT(v);
-            }
-        }
-        u.setCor("PRETO");
-        time++;
-        u.setTermino(time);
-    }
-    
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Vertice<Object> v : vertices) {
-            sb.append("Vertice: ").append(v.toString());
-            sb.append("\nCor: ").append(v.getCor());
-            sb.append("\nTempo de descoberta: ").append(v.getTempoDeDescoberta());
-            sb.append("\ntérmino: ").append(v.getTermino());
-            sb.append("\nAntecessor: ");
-            if (v.getAntecessor() == null) {
-                sb.append("null");
-            } else {
-                sb.append(v.getAntecessor().toString());
-            }
-            sb.append("\n\n");
-        }
-        return sb.toString();
-    }
+    public void Dijkstra(T dado) {
+        if (vertices.containsKey(dado)) {
+            Vertice<T> fonte = vertices.get(dado);
+            initializeSingleSource(fonte);
+            HashSet<Vertice<T>> S = new HashSet<>();
+            PriorityQueue<Vertice<T>> Q = new PriorityQueue<>(Comparator.comparingInt(Vertice<T>::getDistancia));
+
+            Q.addAll(vertices.values());
+
+            System.out.println("Algoritmo de Dijkstra a partir de " + dado + ":");
+
+            while (!Q.isEmpty()) {
+                Vertice<T> u = Q.poll();
+                S.add(u);
+                // System.out.println("Fila de prioriade: "+ S);
 
 
-    public void BFS(String s) {
-        for (Vertice<Object> u : vertices) {
-            u.setCor("BRANCO");
-            u.setAntecessor(null);
-            u.setTempoDeDescoberta(Integer.MAX_VALUE);
-        }
-        Vertice<Object> inicio = this.getVertice(s);
-        inicio.setCor("CINZA");
-        inicio.setTempoDeDescoberta(0);
-        inicio.setAntecessor(null);
-        Queue<Vertice<Object>> fila = new LinkedList<Vertice<Object>>();
-        fila.add(inicio);
-        while (!fila.isEmpty()) {
-            // System.out.println(fila);
-            Vertice<Object> u = fila.poll();
-            System.out.println(u);
-            for (Vertice<Object> v : adjList.get(vertices.indexOf(u))) {
-                if (v.getCor().equals("BRANCO")) {
-                    // System.out.println(v + v.getCor());
-                    v.setCor("CINZA");
-                    v.setTempoDeDescoberta(u.getTempoDeDescoberta()+1);
-                    v.setAntecessor(u);
-                    fila.add(v);
-                    // System.out.println(v + v.getCor());
+                for (Aresta<T> aresta : u.getArestasSaida()) {
+                    relax(u, aresta.getFim(), aresta.getPeso());
+                    System.out.println(aresta);
                 }
             }
-            u.setCor("PRETO");
-            System.out.println("vertice " + u + " ficou " + u.getCor());
-            // System.out.println("vertice " + u + " o seu tempo de descorberta foi: " + u.getTempoDeDescoberta());
+
+            for (Vertice<T> vertice : vertices.values()) {
+                System.out.println("Menor distância até " + vertice.getDado() + ": " + vertice.getDistancia());
+            }
+
+            System.out.println();
         }
+    }
+
+    private void initializeSingleSource(Vertice<T> fonte) {
+        for (Vertice<T> vertice : vertices.values()) {
+            vertice.setDistancia(Integer.MAX_VALUE);
+            vertice.setAntecessor(null);
+        }
+
+        fonte.setDistancia(0);
+    }
+
+    private void relax(Vertice<T> u, Vertice<T> v, int peso) {
+        if (v.getDistancia() > u.getDistancia() + peso) {
+            v.setDistancia(u.getDistancia() + peso);
+            v.setAntecessor(u);
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Vertice<T> vertice : vertices.values()) {
+            sb.append("Vertice: ").append(vertice.getDado()).append(", Distancia: ").append(vertice.getDistancia()).append("\n");
+        }
+
+        return sb.toString();
     }
 }

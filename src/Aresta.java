@@ -1,33 +1,28 @@
+class Aresta<T> {
+    private Vertice<T> inicio;
+    private Vertice<T> fim;
+    private int peso;
 
-
-public class Aresta<TIPO> {
-    private Vertice<TIPO> inicio;
-    private Vertice<TIPO> fim;
-    
-    public Aresta(Vertice<TIPO> inicio, Vertice<TIPO> fim){
+    public Aresta(Vertice<T> inicio, Vertice<T> fim, int peso) {
         this.inicio = inicio;
         this.fim = fim;
+        this.peso = peso;
     }
 
-    public Vertice<TIPO> getInicio() {
+    public Vertice<T> getInicio() {
         return inicio;
     }
 
-    public void setInicio(Vertice<TIPO> inicio) {
-        this.inicio = inicio;
-    }
-
-    public Vertice<TIPO> getFim() {
+    public Vertice<T> getFim() {
         return fim;
     }
 
-    public void setFim(Vertice<TIPO> fim) {
-        this.fim = fim;
+    public int getPeso() {
+        return peso;
     }
 
     @Override
     public String toString() {
-        return "Aresta de " + this.inicio.getDado() + " para " + this.fim.getDado();
+        return inicio.getDado() + " -> " + fim.getDado() + ", Peso: " + peso;
     }
-
 }

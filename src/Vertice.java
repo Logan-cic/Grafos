@@ -1,92 +1,53 @@
 import java.util.ArrayList;
 
-public class Vertice<TIPO> {
-    private String dado;
-    private ArrayList<Aresta<TIPO>> arestasEntrada;
-    private ArrayList<Aresta<TIPO>> arestasSaida;
-    private String cor;
-    private Vertice<TIPO> antecessor;
-    private int tempoDeDescoberta;
-    private int termino;
-    private String rotulo;
+class Vertice<T> {
+    private T dado;
+    private ArrayList<Aresta<T>> arestasSaida;
+    private ArrayList<Aresta<T>> arestasEntrada;
+    private Vertice<T> antecessor;
+    private int distancia;
 
-    public Vertice(String dado){
+    public Vertice(T dado) {
         this.dado = dado;
-        this.arestasEntrada = new ArrayList<Aresta<TIPO>>();
-        this.arestasSaida = new ArrayList<Aresta<TIPO>>();
-        this.cor = "BRANCO";
+        this.arestasSaida = new ArrayList<>();
+        this.arestasEntrada = new ArrayList<>();
         this.antecessor = null;
-        this.tempoDeDescoberta = -1;
-        this.termino = -1;
+        this.distancia = Integer.MAX_VALUE;
     }
-    
-    public String getDado() {
+
+    public T getDado() {
         return dado;
     }
 
-    public void setDado(String dado) {
-        this.dado = dado;
-    }
-
-    public ArrayList<Aresta<TIPO>> getArestasEntrada() {
-        return arestasEntrada;
-    }
-
-    public void setArestasEntrada(ArrayList<Aresta<TIPO>> arestasEntrada) {
-        this.arestasEntrada = arestasEntrada;
-    }
-
-    public ArrayList<Aresta<TIPO>> getArestasSaida() {
+    public ArrayList<Aresta<T>> getArestasSaida() {
         return arestasSaida;
     }
 
-    public void setArestasSaida(ArrayList<Aresta<TIPO>> arestasSaida) {
-        this.arestasSaida = arestasSaida;
+    public ArrayList<Aresta<T>> getArestasEntrada() {
+        return arestasEntrada;
     }
 
-    public String getCor() {
-        return cor;
+    public void addArestaSaida(Aresta<T> aresta) {
+        arestasSaida.add(aresta);
     }
 
-    public void setCor(String cor) {
-        this.cor = cor;
+    public void addArestaEntrada(Aresta<T> aresta) {
+        arestasEntrada.add(aresta);
     }
 
-    public Vertice<TIPO> getAntecessor() {
+    public Vertice<T> getAntecessor() {
         return antecessor;
     }
 
-    public void setAntecessor(Vertice<TIPO> u) {
-        this.antecessor = u;
+    public void setAntecessor(Vertice<T> antecessor) {
+        this.antecessor = antecessor;
     }
 
-    public int getTempoDeDescoberta() {
-        return tempoDeDescoberta;
+    public int getDistancia() {
+        return distancia;
     }
 
-    public void setTempoDeDescoberta(int tempoDeDescoberta) {
-        this.tempoDeDescoberta = tempoDeDescoberta;
+    public void setDistancia(int distancia) {
+        this.distancia = distancia;
     }
-
-    public int getTermino() {
-        return termino;
-    }
-
-    public void setTermino(int termino) {
-        this.termino = termino;
-    }
-
-    public void addArestaEntrada(Aresta<TIPO> aresta){
-        this.arestasEntrada.add(aresta);
-    }
-
-    public void addArestaSaida(Aresta<TIPO> aresta){
-        this.arestasSaida.add(aresta);
-    }
-
-    public String toString(){
-        return this.dado;
-    }
-
-
 }
