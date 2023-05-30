@@ -177,6 +177,43 @@ class Grafo<T> {
         }
     }
 
+    public void BellmanFord(T dado) {
+        if (vertices.containsKey(dado)) {
+            Vertice<T> fonte = vertices.get(dado);
+            initializeSingleSource(fonte);
+
+            System.out.println("Algoritmo de Bellman-Ford a partir de " + dado + ":");
+
+            for (int i = 0; i < vertices.size() - 1; i++) {
+                for (Vertice<T> u : vertices.values()) {
+                    for (Aresta<T> aresta : u.getArestasSaida()) {
+                        Vertice<T> v = aresta.getFim();
+                        int peso = aresta.getPeso();
+                        relax(u, v, peso);
+                        System.out.println(aresta);
+                    }
+                }
+            }
+
+            for (Vertice<T> u : vertices.values()) {
+                for (Aresta<T> aresta : u.getArestasSaida()) {
+                    Vertice<T> v = aresta.getFim();
+                    int peso = aresta.getPeso();
+                    if (v.getDistancia() > u.getDistancia() + peso) {
+                        System.out.println("O grafo contém um ciclo de peso negativo.");
+                        return;
+                    }
+                }
+            }
+
+            for (Vertice<T> vertice : vertices.values()) {
+                System.out.println("Menor distância até " + vertice.getDado() + ": " + vertice.getDistancia());
+            }
+
+            System.out.println();
+        }
+    }
+
     private void initializeSingleSource(Vertice<T> fonte) {
         for (Vertice<T> vertice : vertices.values()) {
             vertice.setDistancia(Integer.MAX_VALUE);
@@ -190,7 +227,6 @@ class Grafo<T> {
         if (v.getDistancia() > u.getDistancia() + peso) {
             v.setDistancia(u.getDistancia() + peso);
             v.setAntecessor(u);
-            // System.out.println(u.getAntecessor());
         }
     }
 

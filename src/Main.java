@@ -32,7 +32,8 @@ public class Main {
         g.addAresta("d", "e", 3);
         g.addAresta("e", "d", 3);
 
-        g.Dijkstra("a");
+        // g.Dijkstra("a");
+        g.BellmanFord("a");
  
     }
     
