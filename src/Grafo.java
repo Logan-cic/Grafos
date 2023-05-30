@@ -214,6 +214,65 @@ class Grafo<T> {
         }
     }
 
+    public void FloydWarshall() {
+        int n = vertices.size();
+        int[][] dist = new int[n][n];
+        T[] verticeArray = (T[]) vertices.keySet().toArray();
+    
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                dist[i][j] = Integer.MAX_VALUE;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            Vertice<T> verticeInicio = vertices.get(verticeArray[i]);
+    
+            for (Aresta<T> aresta : verticeInicio.getArestasSaida()) {
+                Vertice<T> verticeFim = aresta.getFim();
+                int peso = aresta.getPeso();
+                int inicioIndex = getIndex(verticeArray, verticeInicio.getDado());
+                int fimIndex = getIndex(verticeArray, verticeFim.getDado());
+                dist[inicioIndex][fimIndex] = peso;
+            }
+        }
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (dist[i][k] != Integer.MAX_VALUE && dist[k][j] != Integer.MAX_VALUE && dist[i][k] + dist[k][j] < dist[i][j]) {
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                    }
+                }
+            }
+        }
+        System.out.println("Matriz (Floyd-Warshall):");
+        System.out.print("  ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(verticeArray[i] + " ");
+        }
+        System.out.println();
+    
+        for (int i = 0; i < n; i++) {
+            System.out.print(verticeArray[i] + " ");
+            for (int j = 0; j < n; j++) {
+                if (dist[i][j] == Integer.MAX_VALUE) {
+                    System.out.print("inf ");
+                } else {
+                    System.out.print(dist[i][j] + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
+    
+    private int getIndex(T[] array, T value) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(value)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     private void initializeSingleSource(Vertice<T> fonte) {
         for (Vertice<T> vertice : vertices.values()) {
             vertice.setDistancia(Integer.MAX_VALUE);
