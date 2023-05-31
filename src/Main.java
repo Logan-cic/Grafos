@@ -66,13 +66,19 @@ public class Main {
 
         // Adicionar arestas
         grafo.addAresta('A', 'B', 1);
-        grafo.addAresta('A', 'C', 3);
         grafo.addAresta('B', 'C', 1);
-        grafo.addAresta('C', 'D', 2);
-        grafo.addAresta('D', 'A', 4);
+        grafo.addAresta('C', 'A', 1);
+        grafo.addAresta('C', 'D', 1);
+        
 
         grafo.DFS();
+        int[][] closure = grafo.warshall();
+        System.out.println("Matriz de Fecho Transitivo (Warshall):");
+        grafo.imprimirMatriz(closure);
+        System.out.println();
+
         // grafo.FloydWarshall();
- 
+        // grafo.printMatrizAdj();
+        // grafo.printAdjList();
     }
 }

@@ -266,6 +266,53 @@ class Grafo<T> {
         }
     }
     
+    public int[][] warshall() {
+        int n = vertices.size();
+        int[][] closure = new int[n][n];
+    
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                closure[i][j] = Integer.MAX_VALUE;
+            }
+        }
+    
+        T[] verticeArray = (T[]) vertices.keySet().toArray();
+    
+        for (Vertice<T> vertice : vertices.values()) {
+            closure[getIndex(verticeArray, vertice.getDado())][getIndex(verticeArray, vertice.getDado())] = 0;
+    
+            for (Aresta<T> aresta : vertice.getArestasSaida()) {
+                closure[getIndex(verticeArray, vertice.getDado())][getIndex(verticeArray, aresta.getFim().getDado())] = aresta.getPeso();
+            }
+        }
+    
+        // Algoritmo de Warshall
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (closure[i][k] != Integer.MAX_VALUE && closure[k][j] != Integer.MAX_VALUE) {
+                        closure[i][j] = Math.min(closure[i][j], closure[i][k] + closure[k][j]);
+                    }
+                }
+            }
+        
+            System.out.println("Iteração " + (k + 1) + ":");
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (closure[i][j] == Integer.MAX_VALUE) {
+                        System.out.print("inf ");
+                    } else {
+                        System.out.print(closure[i][j] + " ");
+                    }
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
+    
+        return closure;
+    }
+    
     private int getIndex(T[] array, T value) {
         for (int i = 0; i < array.length; i++) {
             if (array[i].equals(value)) {
@@ -274,6 +321,7 @@ class Grafo<T> {
         }
         return -1;
     }
+    
 
     private void initializeSingleSource(Vertice<T> fonte) {
         for (Vertice<T> vertice : vertices.values()) {
@@ -300,5 +348,20 @@ class Grafo<T> {
         }
 
         return sb.toString();
+    }
+
+    static void imprimirMatriz(int[][] matriz) {
+        int n = matriz.length;
+    
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matriz[i][j] == Integer.MAX_VALUE) {
+                    System.out.print("inf ");
+                } else {
+                    System.out.print(matriz[i][j] + " ");
+                }
+            }
+            System.out.println();
+        }
     }
 }
