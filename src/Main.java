@@ -1,5 +1,8 @@
 public class Main {
     
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
 
         // Grafo<String> g = new Grafo<String>();
@@ -10,27 +13,27 @@ public class Main {
         // g.addVertice("e");
 
 
-        // g.addAresta("a", "b", 2);
-        // g.addAresta("b", "a", 2);
+        // g.addAresta("a", "b", "2");
+        // g.addAresta("b", "a", "2");
 
-        // g.addAresta("a", "e", 3);
-        // g.addAresta("e", "a", 3);
+        // g.addAresta("a", "e", "3");
+        // g.addAresta("e", "a", "3");
 
 
-        // g.addAresta("b", "c", 3);
-        // g.addAresta("c", "b", 3);
+        // g.addAresta("b", "c", "3");
+        // g.addAresta("c", "b", "3");
 
-        // g.addAresta("b", "e", 4);
-        // g.addAresta("e", "b", 4);
+        // g.addAresta("b", "e", "4");
+        // g.addAresta("e", "b", "4");
 
-        // g.addAresta("b", "e", 6);
-        // g.addAresta("e", "b", 6);
+        // g.addAresta("b", "e", "6");
+        // g.addAresta("e", "b", "6");
 
-        // g.addAresta("c", "d", 5);
-        // g.addAresta("d", "c", 5);
+        // g.addAresta("c", "d", "5");
+        // g.addAresta("d", "c", "5");
 
-        // g.addAresta("d", "e", 3);
-        // g.addAresta("e", "d", 3);
+        // g.addAresta("d", "e", "3");
+        // g.addAresta("e", "d", "3");
 
         // g.Dijkstra("a");
 
@@ -44,16 +47,16 @@ public class Main {
         // grafo.addVertice("E");
 
         // // Adicionar arestas
-        // grafo.addAresta("A", "B", 4);
-        // grafo.addAresta("A", "C", 2);
-        // grafo.addAresta("B", "D", 3);
-        // grafo.addAresta("C", "B", 1);
-        // grafo.addAresta("C", "D", 4);
-        // grafo.addAresta("D", "E", 2);
-        // grafo.addAresta("E", "C", -3);
+        // grafo.addAresta("A", "B", "4");
+        // grafo.addAresta("A", "C", "2");
+        // grafo.addAresta("B", "D", "3");
+        // grafo.addAresta("C", "B", "1");
+        // grafo.addAresta("C", "D", "4");
+        // grafo.addAresta("D", "E", "2");
+        // grafo.addAresta("E", "C", -"3");
 
         // grafo.BellmanFord("A");
-        
+
         Grafo<Character> grafo = new Grafo<>();
 
         grafo.addVertice('A');
@@ -68,8 +71,8 @@ public class Main {
         grafo.addAresta('C', 'D', 2);
         grafo.addAresta('D', 'A', 4);
 
-        grafo.FloydWarshall();
+        grafo.DFS();
+        // grafo.FloydWarshall();
  
     }
-    
 }

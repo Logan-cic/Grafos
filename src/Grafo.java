@@ -123,11 +123,13 @@ class Grafo<T> {
     public void DFS() {
         HashSet<Vertice<T>> visitados = new HashSet<>();
 
-        System.out.println("Busca em Profundidade (DFS):");
+        System.out.println("Componentes Conectados (DFS):");
 
         for (Vertice<T> vertice : vertices.values()) {
             if (!visitados.contains(vertice)) {
+                System.out.print("Componente: ");
                 DFSVisit(vertice, visitados);
+                System.out.println();
             }
         }
 
